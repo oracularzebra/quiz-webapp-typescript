@@ -9,30 +9,29 @@ export interface User{
 }
 export type UserProps = {
   user: User,
+  loggedIn?: boolean,
   setUser: React.Dispatch<React.SetStateAction<User | null>>
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
 }
 interface Response{
     success: boolean,
     message: string
 }
-export function sign_in(user: User): Response{
+export async function sign_in(user: User): Promise<Response>{
 
-    axios.get(backendUrl, {
+    const res = await axios({
+        method:'get',
+        url:`${backendUrl}/sign-in`,
         headers:{
-            'Access-Control-Allow-Origin':'*',
             username: user.username,
-            password: sha256(user.password!),
+            password: (user.password && user.password.length > 0 ) && sha256(user.password)
         }
     });
-
-    return {
-        success: false,
-        message: "Please try again"
-    }
+    console.log(res)
+    return res.data;
 }
 export async function sign_up(user: User): Promise<Response>{
 
-    console.log(user)
     const res = await axios({
         method:'post',
         url:`${backendUrl}/sign-up`,
@@ -42,6 +41,5 @@ export async function sign_up(user: User): Promise<Response>{
         }
     });
 
-    console.log(res);
     return res.data;
 }

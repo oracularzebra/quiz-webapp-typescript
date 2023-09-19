@@ -1,13 +1,21 @@
-import { useState } from "react";
-import { UserProps, sign_up } from "../user/user";
+import { useEffect, useState } from "react";
+import { UserProps, sign_up } from "./user";
+import { useNavigate } from "react-router-dom";
 
 type Response = {
     success: boolean,
     message: string
 }
-export default function SignUp({user,setUser}: UserProps){
+export default function SignUp({user,setUser, setLoggedIn}: UserProps){
 
+    const navigate = useNavigate();
     const [res, setRes] = useState<Response | null>(null);
+    useEffect(()=>{
+        if(res?.success == true){
+            setLoggedIn(true);
+            navigate('/home');
+        }
+    }, [res])
 
     return (
         <>

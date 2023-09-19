@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import App from "../App"
-import SignUp from "./user/sign_up"
+import SignUp from "./user/SignUp"
 
 interface Routes {
     path: string,
