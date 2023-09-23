@@ -1,8 +1,9 @@
 import axios from "axios";
 import { backendUrl } from "../../App";
 
+export type category_type = string | null;
 export interface CatBox{
-    category: string,
+    category: category_type,
     sub_categories: string[],
 }
 export async function getCategories(){
@@ -22,7 +23,6 @@ export async function getCategories(){
             })
             cats.push({category:i.category, sub_categories: subCats.data.data});
         }
-        console.log(cats);
         return {success: true, data: cats};
     }
     else{

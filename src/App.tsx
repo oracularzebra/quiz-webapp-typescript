@@ -6,6 +6,7 @@ import SignUp from './routes/user/SignUp';
 import SignIn from './routes/user/SignIn';
 import Landing from './routes/landing/Landing';
 import Home from './routes/home/Home';
+import Test from './routes/test/Test';
 
 export const backendUrl = 'http://localhost:9001';
 
@@ -28,6 +29,8 @@ function App() {
         element={<SignIn setLoggedIn={setLoggedIn} user={user!} setUser={setUser!} />}/>
         <Route path='/home'
         element={<Home user={user!} loggedIn={loggedIn}/>}/>
+        <Route path='/test/:category/:difficulty'
+        element={<Test loggedIn={loggedIn}/>}/>
     </Routes>
     </>
   )
