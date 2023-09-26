@@ -1,47 +1,69 @@
 import axios from "axios";
 import { backendUrl } from "../../App";
-import { category_type } from "../home/category";
-import { username_type } from "../user/user";
 
-export type QuestionResponse = {
+export type Questions = {
     success: boolean,
     data: {id:number, question:string, options:string[]}[]
 }
-export interface QuestionType{
-    id: number,
-    question: string,
-    options: string[]
+export interface QuestionTypeProps{
+    id: number | null,
+    index: number | null,
+    question: string | null,
+    options: string[] | []
 }
-type Difficulty = 'Easy' | 'Medium' | 'Hard';
-interface SingleQues{
-    question_id: number,
-    options: string[],
-    difficulty_type: Difficulty,
+export interface QuestionListProps{
+    length: number,
+    setSelectedQuestionId: React.Dispatch<React.SetStateAction<number | null>>
 }
-interface Test{
-    questions: SingleQues[],
-}
-interface Attempt{
-    attemp_time: Date,
-    username: username_type,
-    category: category_type,
-    questions_id: SingleQues[],
-    difficulty_type: string,
-}
-export async function getQuestions(category:string, difficulty:string):Promise<QuestionResponse>{
+export async function getQuestions(category:string, difficulty:string):Promise<Questions>{
     
     const result = await axios({
         method: 'get',
         url: `${backendUrl}/questions`,
         headers:{
             category: category,
-            difficulty: difficulty,
-            type: 'multiple',
+            difficulty: difficulty,            
+            noofques: '20',
+            type: 'multiple'
         }
     })
     if(result.data.success){
-        //result.data = {success:true, data:[filled]};
+        console.log(result.data);
         return result.data;
     }
-    return {success: false, data:[]};
+    return result.data;
+}
+export interface TestTime{
+    min: number, 
+    sec: number
+}
+export type TimerProps = {
+    testTime: TestTime,
+    setEnd: React.Dispatch<React.SetStateAction<boolean>>
+}
+export function handleNextPrev(
+    command: 'prev' | 'next',
+    length:number,
+    index:number | null,
+    setSelectedQuestionId: React.Dispatch<React.SetStateAction<number | null>>, 
+    ){
+        if(command == 'next'){
+            if(index == length-1){
+                setSelectedQuestionId(0);
+            }
+            else{
+                setSelectedQuestionId(index!+1);
+            }
+        }
+        else if(command == 'prev'){
+            if(index == 0){
+                setSelectedQuestionId(length-1);
+            }
+            else{
+                setSelectedQuestionId(index!-1);
+            }
+        }
+}
+export function handleMarkOption(){
+    
 }

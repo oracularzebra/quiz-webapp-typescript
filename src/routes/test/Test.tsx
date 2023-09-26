@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { QuestionResponse, QuestionType, getQuestions } from "./test";
+import { QuestionListProps, QuestionTypeProps, Questions, TestTime, TimerProps, getQuestions, handleMarkOption, handleNextPrev } from "./test";
 import { useNavigate, useParams } from "react-router-dom";
 import { UserProps } from "../user/user";
 
@@ -7,53 +7,125 @@ export default function Test({loggedIn}:Partial<UserProps>){
 
     const navigate = useNavigate();
     const {category, difficulty} = useParams();
-    const [questions, setQuestions] = useState<QuestionResponse | null>(null);
+    const [questions, setQuestions] = useState<Questions | null>(null);
+    const [selectedQuestionId, setSelectedQuestionId] = useState<number | null>(null);
+    const [endTest, setEndTest] = useState<boolean>(false);
+    const [testTime, setTestTime] = useState<TestTime | null>(null)
+    const [markedOptions, setMarkedOtions] = useState<string[]>([]);
     
     useEffect(()=>{
-        if(!loggedIn) navigate('/home');
+        if(!loggedIn) navigate('/home');        
+        if(endTest) navigate('/test/result', {state: {questions, markedOptions}});
         if(category == undefined || difficulty == undefined) navigate('/home');
         else{
             (async()=>{        
             const result = await getQuestions(category, difficulty);
             setQuestions(result);
+            setTestTime({min: result.data.length , sec:0})
+            if(result.data.length > 0) setSelectedQuestionId(0);
             })();
         }
-    }, [loggedIn ,category, difficulty]);
+        console.log('Running useEffect');
+    }, [loggedIn, category, difficulty, endTest]);
+
     return (
         <>
            {
-           questions?.success  
+           questions  
            ?
-            questions.data.map((item, key) => (
-                <>
-                    <Question
-                    key={key}
-                    id={key+1}
-                    options={item.options}
-                    question={item.question}
-                    ></Question>
-                    <br />
-                </>
-            ))
+           <>
+            <Counter 
+            testTime={testTime!}
+            setEnd={setEndTest}
+            />
+            <QuestionNumbersArray
+            length={questions.data.length}
+            setSelectedQuestionId={setSelectedQuestionId}/>
+            <Question
+            index={selectedQuestionId!+1} 
+            id={questions.data[selectedQuestionId!].id} 
+            options={questions.data[selectedQuestionId!].options}
+            question={questions.data[selectedQuestionId!].question}/>
+            <button 
+            onClick={()=>handleNextPrev(
+                'next',
+                questions.data.length,
+                selectedQuestionId!,
+                setSelectedQuestionId,
+                )}>Next</button>
+            <button
+            onClick={()=>handleNextPrev(
+                'prev',
+                questions.data.length,
+                selectedQuestionId!,
+                setSelectedQuestionId,
+                )}
+            >Previous</button>
+            <button 
+            onClick={()=>setEndTest(true)}
+            type="submit">End Test</button>
+            </>
             : 
             <>loading</>
            }
         </>
     )
 }
-function Question(ques:QuestionType){
+function Question(props:QuestionTypeProps){
 
     return (
         <>
-            {ques.id}
-            {ques.question}
+            Q{props.index}
+            {props.question}
             <br/>
-            {ques.options.map((option, key) => (
-                <>
-                    {option}
-                    <br/>
-                </>
+            {props.options.map((option, key) => (
+                <div key={key}>
+                    <input onClick={()=>{
+                        handleMarkOption();
+                    }} type="radio" name={`${props.id}`} value={option}/>
+                    <label htmlFor="">{option}</label>
+                </div>
             ))}
         </>
+    )
+}
+function QuestionNumbersArray(props: QuestionListProps){
+
+    const {length, setSelectedQuestionId} = props;
+    return (
+        Array.from({length:length}).map((_,key)=>(
+            <button key={key}
+            onClick={()=>{
+                setSelectedQuestionId(key);
+            }}>{key+1}</button>
+        ))
+    )
+}
+const Counter=({testTime, setEnd}:TimerProps)=>{
+
+    const [counter, setCounter] = useState<TestTime>(testTime);
+
+    function tick(){
+        if(counter.min === 0 && counter.sec === 0){
+            //show the result
+            setEnd(true);
+        }
+        else if(counter.sec === 0){
+            setCounter({min:counter.min-1, sec:59});
+        }
+        else{
+            setCounter({min:counter.min, sec:counter.sec-1});
+        }
+    }
+    useEffect(()=>{
+        setTimeout(()=>{
+            tick();
+        }, 1000);
+    });
+
+    return (
+        <div className="counter">
+            {counter.min+":"+ counter.sec}
+        </div>
     )
 }

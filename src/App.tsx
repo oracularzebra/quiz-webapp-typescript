@@ -7,6 +7,7 @@ import SignIn from './routes/user/SignIn';
 import Landing from './routes/landing/Landing';
 import Home from './routes/home/Home';
 import Test from './routes/test/Test';
+import Result from './routes/result/Result';
 
 export const backendUrl = 'http://localhost:9001';
 
@@ -31,9 +32,10 @@ function App() {
         element={<Home user={user!} loggedIn={loggedIn}/>}/>
         <Route path='/test/:category/:difficulty'
         element={<Test loggedIn={loggedIn}/>}/>
+        <Route path='/test/result'
+        element={<Result/>}/>
     </Routes>
     </>
   )
 }
-
 export default App;
