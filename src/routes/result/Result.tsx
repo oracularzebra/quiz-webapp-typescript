@@ -15,7 +15,8 @@ export default function Result(){
     useEffect(()=>{
         //Here we will check the questionsId against 
         //marked options
-        console.log('result questions');
+        console.log(questions);
+        console.log(markedOptions);
         if (questions == null) navigate('/home');
     }, [])
     return (

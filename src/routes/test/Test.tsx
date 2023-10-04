@@ -21,6 +21,10 @@ export default function Test({loggedIn}:Partial<UserProps>){
             (async()=>{        
             const result = await getQuestions(category, difficulty);
             setQuestions(result);
+            setMarkedOtions(
+                Array.from({length:result.data.length})
+                .map(_=>"undefined")
+            )
             setTestTime({min: result.data.length , sec:0})
             if(result.data.length > 0) setSelectedQuestionId(0);
             })();
@@ -42,10 +46,13 @@ export default function Test({loggedIn}:Partial<UserProps>){
             length={questions.data.length}
             setSelectedQuestionId={setSelectedQuestionId}/>
             <Question
-            index={selectedQuestionId!+1} 
-            id={questions.data[selectedQuestionId!].id} 
+            index={selectedQuestionId!+1}
+            id={questions.data[selectedQuestionId!].id}
             options={questions.data[selectedQuestionId!].options}
-            question={questions.data[selectedQuestionId!].question}/>
+            question={questions.data[selectedQuestionId!].question}
+            setMarkedOptions={setMarkedOtions}
+            markedOptions={markedOptions}
+            />
             <button 
             onClick={()=>handleNextPrev(
                 'next',
@@ -80,8 +87,14 @@ function Question(props:QuestionTypeProps){
             <br/>
             {props.options.map((option, key) => (
                 <div key={key}>
-                    <input onClick={()=>{
-                        handleMarkOption();
+                    <input 
+                    checked={props.markedOptions[props.index!] == option? true : false}
+                    onChange={()=>{
+                        handleMarkOption(
+                            props.index!,
+                            props.setMarkedOptions,
+                            option
+                        );
                     }} type="radio" name={`${props.id}`} value={option}/>
                     <label htmlFor="">{option}</label>
                 </div>

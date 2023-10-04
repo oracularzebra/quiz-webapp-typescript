@@ -8,8 +8,10 @@ export type Questions = {
 export interface QuestionTypeProps{
     id: number | null,
     index: number | null,
-    question: string | null,
-    options: string[] | []
+    question: string,
+    options: string[] | [],
+    setMarkedOptions: React.Dispatch<React.SetStateAction<string[]>>
+    markedOptions: string[]
 }
 export interface QuestionListProps{
     length: number,
@@ -64,6 +66,16 @@ export function handleNextPrev(
             }
         }
 }
-export function handleMarkOption(){
-    
+export function handleMarkOption(
+    current_index: number,
+    setMarkedOptions: React.Dispatch<React.SetStateAction<string[]>>,
+    markedOption: string
+):void{
+    setMarkedOptions(options=>options.map(
+        (old_option, index)=>{
+            console.log(index)
+            if(index == current_index) return markedOption;
+            return old_option;
+        }
+    ))
 }
