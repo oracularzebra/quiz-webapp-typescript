@@ -3,7 +3,7 @@ import { UserProps } from "../user/user";
 import { useEffect, useState } from "react";
 import { CatBox, getCategories } from "./category";
 
-export default function Home({loggedIn, user}:Partial<UserProps>){
+export default function Home({loggedIn}:Partial<UserProps>){
 
     const navigate = useNavigate();
     
