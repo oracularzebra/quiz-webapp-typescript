@@ -45,7 +45,7 @@ export default function Test({loggedIn}:Partial<UserProps>){
             <QuestionNumbersArray
             length={questions.data.length}
             setSelectedQuestionId={setSelectedQuestionId}/>
-            <Question
+            <QuestionTag
             index={selectedQuestionId!+1}
             id={questions.data[selectedQuestionId!].id}
             options={questions.data[selectedQuestionId!].options}
@@ -78,7 +78,7 @@ export default function Test({loggedIn}:Partial<UserProps>){
         </>
     )
 }
-function Question(props:QuestionTypeProps){
+function QuestionTag(props:QuestionTypeProps){
 
     return (
         <>

@@ -9,7 +9,7 @@ import Home from './routes/home/Home';
 import Test from './routes/test/Test';
 import Result from './routes/result/Result';
 
-export const backendUrl = 'https://quiz-api-9cxr.onrender.com';
+export const backendUrl = 'http://localhost:9001';
 
 function App() {
 

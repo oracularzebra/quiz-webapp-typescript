@@ -1,9 +1,10 @@
 import { useEffect } from "react"
 import { Questions } from "../test/test"
 import { useLocation, useNavigate } from "react-router-dom"
+import { getResult } from "./result";
 
 interface Result{
-    questions: Questions
+    questions: Questions[]
     markedOptions: string[],
 }
 export default function Result(){
@@ -18,6 +19,8 @@ export default function Result(){
         console.log(questions);
         console.log(markedOptions);
         if (questions == null) navigate('/home');
+
+        getResult(questions, markedOptions)
     }, [])
     return (
         <>
