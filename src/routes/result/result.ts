@@ -1,13 +1,15 @@
 import axios from "axios"
 import { backendUrl } from "../../App"
+import { Questions } from "../test/test";
 
 export interface ResultReq{
-    questions_id: number[],
+    questions: Questions,
     markedOptions: string[],
 }
 export interface ResultRes{
     success: boolean,
     marks: number,
+    correct_marked_questions_id: number[]
     //I need to implement this
     // timeTaken: TestTime,
 }

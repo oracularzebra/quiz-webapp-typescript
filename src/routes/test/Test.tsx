@@ -31,9 +31,8 @@ export default function Test({loggedIn}:Partial<UserProps>){
     }, [loggedIn, category, difficulty]);
     
     useEffect(()=>{
-        const questions_id = questions?.data.map(obj => obj.id);
         if (endTest) {
-            navigate('/test/result', {state: {questions_id, markedOptions, testTime}});
+            navigate('/test/result', {state: {questions, markedOptions, testTime}});
         }
     }, [endTest]);
 
@@ -58,13 +57,6 @@ export default function Test({loggedIn}:Partial<UserProps>){
             setMarkedOptions={setMarkedOtions}
             markedOptions={markedOptions}
             />
-            <button 
-            onClick={()=>handleNextPrev(
-                'next',
-                questions.data.length,
-                selectedQuestionId!,
-                setSelectedQuestionId,
-                )}>Next</button>
             <button
             onClick={()=>handleNextPrev(
                 'prev',
@@ -73,6 +65,14 @@ export default function Test({loggedIn}:Partial<UserProps>){
                 setSelectedQuestionId,
                 )}
             >Previous</button>
+            <button 
+            onClick={()=>handleNextPrev(
+                'next',
+                questions.data.length,
+                selectedQuestionId!,
+                setSelectedQuestionId,
+                )}
+            >Next</button>
             <button 
             onClick={()=>setEndTest(true)}
             type="submit">End Test</button>
