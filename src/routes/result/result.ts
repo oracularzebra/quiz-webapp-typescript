@@ -1,6 +1,5 @@
 import axios from "axios"
 import { backendUrl } from "../../App"
-import { TestTime } from "../test/test";
 
 export interface ResultReq{
     questions_id: number[],
