@@ -30,7 +30,6 @@ export async function getQuestions(category:string, difficulty:string):Promise<Q
         }
     })
     if(result.data.success){
-        console.log(result.data);
         return result.data;
     }
     return result.data;
@@ -71,9 +70,9 @@ export function handleMarkOption(
     setMarkedOptions: React.Dispatch<React.SetStateAction<string[]>>,
     markedOption: string
 ):void{
+    console.log(current_index);
     setMarkedOptions(options=>options.map(
         (old_option, index)=>{
-            console.log(index)
             if(index == current_index) return markedOption;
             return old_option;
         }

@@ -15,7 +15,6 @@ export default function Test({loggedIn}:Partial<UserProps>){
     
     useEffect(()=>{
         if(!loggedIn) navigate('/home');        
-        if(endTest) navigate('/test/result', {state: {questions, markedOptions}});
         if(category == undefined || difficulty == undefined) navigate('/home');
         else{
             (async()=>{        
@@ -29,8 +28,14 @@ export default function Test({loggedIn}:Partial<UserProps>){
             if(result.data.length > 0) setSelectedQuestionId(0);
             })();
         }
-        console.log('Running useEffect');
-    }, [loggedIn, category, difficulty, endTest]);
+    }, [loggedIn, category, difficulty]);
+    
+    useEffect(()=>{
+        const questions_id = questions?.data.map(obj => obj.id);
+        if (endTest) {
+            navigate('/test/result', {state: {questions_id, markedOptions, testTime}});
+        }
+    }, [endTest]);
 
     return (
         <>
@@ -45,8 +50,8 @@ export default function Test({loggedIn}:Partial<UserProps>){
             <QuestionNumbersArray
             length={questions.data.length}
             setSelectedQuestionId={setSelectedQuestionId}/>
-            <QuestionTag
-            index={selectedQuestionId!+1}
+            <Question
+            index={selectedQuestionId!}
             id={questions.data[selectedQuestionId!].id}
             options={questions.data[selectedQuestionId!].options}
             question={questions.data[selectedQuestionId!].question}
@@ -78,11 +83,11 @@ export default function Test({loggedIn}:Partial<UserProps>){
         </>
     )
 }
-function QuestionTag(props:QuestionTypeProps){
+function Question(props:QuestionTypeProps){
 
     return (
         <>
-            Q{props.index}
+            Q{props.index! + 1}
             {props.question}
             <br/>
             {props.options.map((option, key) => (

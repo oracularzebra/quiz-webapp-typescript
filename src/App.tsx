@@ -9,7 +9,7 @@ import Home from './routes/home/Home';
 import Test from './routes/test/Test';
 import Result from './routes/result/Result';
 
-export const backendUrl = 'http://localhost:9001';
+export const backendUrl = import.meta.env.VITE_backend_url;
 
 function App() {
 

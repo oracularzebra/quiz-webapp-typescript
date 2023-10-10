@@ -1,30 +1,37 @@
-import { useEffect } from "react"
-import { Questions } from "../test/test"
+import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { getResult } from "./result";
+import { ResultReq, ResultRes, getResult } from "./result";
 
-interface Result{
-    questions: Questions[]
-    markedOptions: string[],
-}
 export default function Result(){
 
     const location = useLocation();
     const navigate = useNavigate();
-    const {questions, markedOptions}:Result = location.state;
+    const {questions_id, markedOptions}:ResultReq = location.state;
+    const [result, setResult] = useState<ResultRes | null>(null);
 
     useEffect(()=>{
-        //Here we will check the questionsId against 
-        //marked options
-        console.log(questions);
-        console.log(markedOptions);
-        if (questions == null) navigate('/home');
+        if(questions_id == undefined || markedOptions == undefined) navigate('/home');
+    }, [questions_id, markedOptions]);
 
-        getResult(questions, markedOptions)
-    }, [])
+    useEffect(()=>{
+        console.log(process);
+        (async function(){
+            const result = await getResult(questions_id, markedOptions);
+            setResult(result);
+        })();
+    }, []);
+
     return (
         <>
-            Result
+            {
+                result == null
+                ?
+                <>loading...</>
+                :
+                <>marks
+                {result!.marks}
+                </>
+            }
         </>
     )
 }
