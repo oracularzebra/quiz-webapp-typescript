@@ -14,7 +14,6 @@ export default function Result(){
     }, [questions_id, markedOptions]);
 
     useEffect(()=>{
-        console.log(process);
         (async function(){
             const result = await getResult(questions_id, markedOptions);
             setResult(result);
