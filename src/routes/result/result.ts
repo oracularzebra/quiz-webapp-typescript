@@ -9,7 +9,8 @@ export interface ResultReq{
 export interface ResultRes{
     success: boolean,
     marks: number,
-    correct_marked_questions_id: number[]
+    correct_marked_questions_id: number[],
+    correct_answers: string[]
     //I need to implement this
     // timeTaken: TestTime,
 }

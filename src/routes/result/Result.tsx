@@ -34,15 +34,29 @@ export default function Result(){
                 :
                 <>marks 
                 {result!.marks}
+                <ul style={{listStyle:'none'}}>
+                    <li style={{backgroundColor:"green"}}>correct</li>
+                    <li style={{backgroundColor:"orange"}}>Attempted and correct</li>
+                    <li style={{backgroundColor:"red"}}>Attempted and wrong</li>
+                </ul>
                 {questions.data.map((obj, index1)=>
                     (<div key={obj.id}>
                         Q{index1+1}{obj.question}
                         <ul style={{listStyle:'none'}}>
                         {obj.options.map((op, index2)=>
                             {
+                                //show green color on the correct
+                                //option and red color on the incorrect
+                                //marked by you
+                            const correct_answer = result.correct_answers[index1];
+                            const marked_option = markedOptions[index1];
+                            console.log(typeof marked_option)
+                            console.log()
                             return <li key={index2} style={{
-                                color:markedOptions[index1] == op
-                                ?'green': 'white'
+                                color: op == correct_answer ?
+                                marked_option == 'undefined' ? 'green' :
+                                marked_option == correct_answer ? 'yellow' : 'red'
+                                : 'white'
                             }}>
                                 {op}
                             </li>}
