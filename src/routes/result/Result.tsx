@@ -53,9 +53,11 @@ export default function Result(){
                             console.log(typeof marked_option)
                             console.log()
                             return <li key={index2} style={{
-                                color: op == correct_answer ?
-                                marked_option == 'undefined' ? 'green' :
-                                marked_option == correct_answer ? 'yellow' : 'red'
+                                // color: op == correct_answer ? 'green' :
+                                // marked_option == correct_answer ? 'red' : 'white'
+                                color: op == correct_answer ? 
+                                correct_answer == marked_option ? 'yellow' : 'green' :
+                                marked_option == op ? 'red' 
                                 : 'white'
                             }}>
                                 {op}
