@@ -9,7 +9,6 @@ export default function Result(){
     //here we need questions_id because we
     //would use the same page to show previous 
     //attempts.
-    const {questions_ids} = location.state;
     const {questions, markedOptions}:ResultReq = location.state;
     const [result, setResult] = useState<ResultRes | null>(null);
 
