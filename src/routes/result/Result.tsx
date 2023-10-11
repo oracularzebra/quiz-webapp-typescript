@@ -50,8 +50,6 @@ export default function Result(){
                                 //marked by you
                             const correct_answer = result.correct_answers[index1];
                             const marked_option = markedOptions[index1];
-                            console.log(typeof marked_option)
-                            console.log()
                             return <li key={index2} style={{
                                 // color: op == correct_answer ? 'green' :
                                 // marked_option == correct_answer ? 'red' : 'white'
