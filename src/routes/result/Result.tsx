@@ -32,7 +32,7 @@ export default function Result(){
                 ?
                 <>loading...</>
                 :
-                <>marks
+                <>marks 
                 {result!.marks}
                 {questions.data.map((obj, index1)=>
                     (<div key={obj.id}>
@@ -40,9 +40,9 @@ export default function Result(){
                         <ul style={{listStyle:'none'}}>
                         {obj.options.map((op, index2)=>
                             {
-                            console.log(op);
                             return <li key={index2} style={{
-                                color:index2 == result.correct_marked_questions_id[index1]?'green': 'inherit'
+                                color:markedOptions[index1] == op
+                                ?'green': 'white'
                             }}>
                                 {op}
                             </li>}
