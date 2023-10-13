@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { UserProps } from "../user/user";
 import { useEffect, useState } from "react";
 import { CatBox, getCategories } from "./category";
 
-export default function Home({loggedIn}:Partial<UserProps>){
+interface UserProps{
+    username: string | null,
+    loggedIn: boolean
+}
+export default function Home({username, loggedIn}:UserProps){
 
     const navigate = useNavigate();
     

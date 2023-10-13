@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
 import { QuestionListProps, QuestionTypeProps, Questions, TestTime, TimerProps, getQuestions, handleMarkOption, handleNextPrev } from "./test";
 import { useNavigate, useParams } from "react-router-dom";
-import { UserProps } from "../user/user";
 
-export default function Test({loggedIn}:Partial<UserProps>){
+interface UserProps{
+    username: string | null,
+    loggedIn: boolean
+}
+export default function Test({loggedIn, username}:UserProps){
 
     const navigate = useNavigate();
     const {category, difficulty} = useParams();
@@ -33,7 +36,7 @@ export default function Test({loggedIn}:Partial<UserProps>){
     
     useEffect(()=>{
         if (endTest) {
-            navigate('/test/result', {state: {loggedIn, questions, markedOptions, duration}});
+            navigate('/test/result', {state: {loggedIn, questions, markedOptions, duration, username}});
         }
     }, [endTest]);
 

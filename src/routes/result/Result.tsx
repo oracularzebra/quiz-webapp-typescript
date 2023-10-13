@@ -10,20 +10,20 @@ export default function Result(){
     //would use the same page to show previous 
     //attempts.
     const loggedIn = location.state;
-    const {questions, markedOptions, duration}:ResultReq = location.state;
+    const {questions, markedOptions, duration, username}:ResultReq = location.state;
     const [result, setResult] = useState<ResultRes | null>(null);
 
     useEffect(()=>{
         if(questions == undefined || markedOptions == undefined 
         || loggedIn == undefined || loggedIn == false) 
-        // )
         navigate('/home');
+
     }, [questions, markedOptions, loggedIn]);
 
     useEffect(()=>{
         (async function(){
             const questions_id = questions?.data.map((obj:{id:number}) => obj.id);
-            const result = await getResult(questions_id, markedOptions, duration);
+            const result = await getResult(questions_id, markedOptions, duration, username);
             setResult(result);
             console.log(result);
         })();

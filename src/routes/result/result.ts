@@ -21,6 +21,7 @@ export async function getResult(
     questions_id: number[],
     markedOptions: string[],
     duration: TestTime,
+    username: string
 ):Promise<ResultRes>{
     const result = await axios({
         method: 'post',
@@ -28,7 +29,8 @@ export async function getResult(
         headers: {
             'questions_id': JSON.stringify(questions_id),
             'marked_options': JSON.stringify(markedOptions),
-            'duration' : JSON.stringify(duration)
+            'duration' : JSON.stringify(duration),
+            'username': username
         }
     })
     return result.data.data;
