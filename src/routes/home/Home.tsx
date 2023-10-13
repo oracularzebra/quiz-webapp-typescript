@@ -15,6 +15,7 @@ export default function Home({username, loggedIn}:UserProps){
     }, [loggedIn]);
     return (
         <>
+            hello {username}
             <Categories/>
             <PreviousAttempts/>
         </>
