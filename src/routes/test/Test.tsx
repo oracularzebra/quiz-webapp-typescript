@@ -129,7 +129,7 @@ const Counter=({testTime, setEnd, setDuration}:TimerProps)=>{
 
     const [counter, setCounter] = useState<TestTime>(testTime);
     useEffect(()=>{
-        setDuration({min: testTime.min-counter.min, sec:Math.abs(testTime.sec-counter.sec)});
+        setDuration({min: testTime.min-counter.min+1, sec:Math.abs(testTime.sec-counter.sec)});
     }, [counter])
 
     function tick(){
