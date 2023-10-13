@@ -9,17 +9,21 @@ export default function Result(){
     //here we need questions_id because we
     //would use the same page to show previous 
     //attempts.
-    const {questions, markedOptions}:ResultReq = location.state;
+    const loggedIn = location.state;
+    const {questions, markedOptions, duration}:ResultReq = location.state;
     const [result, setResult] = useState<ResultRes | null>(null);
 
     useEffect(()=>{
-        if(questions == undefined || markedOptions == undefined) navigate('/home');
-    }, [questions, markedOptions]);
+        if(questions == undefined || markedOptions == undefined 
+        || loggedIn == undefined || loggedIn == false) 
+        // )
+        navigate('/home');
+    }, [questions, markedOptions, loggedIn]);
 
     useEffect(()=>{
         (async function(){
             const questions_id = questions?.data.map((obj:{id:number}) => obj.id);
-            const result = await getResult(questions_id, markedOptions);
+            const result = await getResult(questions_id, markedOptions, duration);
             setResult(result);
             console.log(result);
         })();
@@ -34,6 +38,9 @@ export default function Result(){
                 :
                 <>marks 
                 {result!.marks}
+                <br />
+                {result.duration.min}min
+                {result.duration.sec}sec
                 <ul style={{listStyle:'none'}}>
                     <li style={{backgroundColor:"green"}}>correct</li>
                     <li style={{backgroundColor:"orange"}}>Attempted and correct</li>
@@ -51,8 +58,6 @@ export default function Result(){
                             const correct_answer = result.correct_answers[index1];
                             const marked_option = markedOptions[index1];
                             return <li key={index2} style={{
-                                // color: op == correct_answer ? 'green' :
-                                // marked_option == correct_answer ? 'red' : 'white'
                                 color: op == correct_answer ? 
                                 correct_answer == marked_option ? 'yellow' : 'green' :
                                 marked_option == op ? 'red' 

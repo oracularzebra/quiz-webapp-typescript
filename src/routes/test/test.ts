@@ -40,6 +40,7 @@ export interface TestTime{
 }
 export type TimerProps = {
     testTime: TestTime,
+    setDuration: React.Dispatch<React.SetStateAction<TestTime | null>>,
     setEnd: React.Dispatch<React.SetStateAction<boolean>>
 }
 export function handleNextPrev(

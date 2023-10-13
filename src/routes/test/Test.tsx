@@ -12,7 +12,8 @@ export default function Test({loggedIn}:Partial<UserProps>){
     const [endTest, setEndTest] = useState<boolean>(false);
     const [testTime, setTestTime] = useState<TestTime | null>(null)
     const [markedOptions, setMarkedOtions] = useState<string[]>([]);
-    
+    const [duration, setDuration]  = useState<TestTime | null>(null);
+
     useEffect(()=>{
         if(!loggedIn) navigate('/home');        
         if(category == undefined || difficulty == undefined) navigate('/home');
@@ -32,7 +33,7 @@ export default function Test({loggedIn}:Partial<UserProps>){
     
     useEffect(()=>{
         if (endTest) {
-            navigate('/test/result', {state: {questions, markedOptions, testTime}});
+            navigate('/test/result', {state: {loggedIn, questions, markedOptions, duration}});
         }
     }, [endTest]);
 
@@ -43,6 +44,7 @@ export default function Test({loggedIn}:Partial<UserProps>){
            ?
            <>
             <Counter 
+            setDuration={setDuration}
             testTime={testTime!}
             setEnd={setEndTest}
             />
@@ -119,9 +121,12 @@ function QuestionNumbersArray(props: QuestionListProps){
         ))
     )
 }
-const Counter=({testTime, setEnd}:TimerProps)=>{
+const Counter=({testTime, setEnd, setDuration}:TimerProps)=>{
 
     const [counter, setCounter] = useState<TestTime>(testTime);
+    useEffect(()=>{
+        setDuration({min: testTime.min-counter.min, sec:Math.abs(testTime.sec-counter.sec)});
+    }, [counter])
 
     function tick(){
         if(counter.min === 0 && counter.sec === 0){
