@@ -10,19 +10,20 @@ export default function Result(){
     //would use the same page to show previous 
     //attempts.
     const loggedIn = location.state;
-    const {questions, markedOptions, duration, username}:ResultReq = location.state;
+    const {questions_id, markedOptions, duration, username}:ResultReq = location.state;
     const [result, setResult] = useState<ResultRes | null>(null);
 
     useEffect(()=>{
-        if(questions == undefined || markedOptions == undefined 
+        console.log(questions_id);
+        if(questions_id == undefined || markedOptions == undefined 
         || loggedIn == undefined || loggedIn == false) 
         navigate('/home');
 
-    }, [questions, markedOptions, loggedIn]);
+    }, [questions_id, markedOptions, loggedIn]);
 
     useEffect(()=>{
         (async function(){
-            const questions_id = questions?.data.map((obj:{id:number}) => obj.id);
+            // const questions_id = questions?.data.map((obj:{id:number}) => obj.id);
             const result = await getResult(questions_id, markedOptions, duration, username);
             setResult(result);
             console.log(result);
@@ -46,7 +47,7 @@ export default function Result(){
                     <li style={{backgroundColor:"orange"}}>Attempted and correct</li>
                     <li style={{backgroundColor:"red"}}>Attempted and wrong</li>
                 </ul>
-                {questions.data.map((obj, index1)=>
+                {result.questions.data.map((obj, index1)=>
                     (<div key={obj.id}>
                         Q{index1+1}{obj.question}
                         <ul style={{listStyle:'none'}}>

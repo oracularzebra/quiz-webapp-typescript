@@ -36,7 +36,8 @@ export default function Test({loggedIn, username}:UserProps){
     
     useEffect(()=>{
         if (endTest) {
-            navigate('/test/result', {state: {loggedIn, questions, markedOptions, duration, username}});
+            const questions_id = questions?.data.map(obj=>obj.id);
+            navigate('/test/result', {state: {loggedIn, questions_id, markedOptions, duration, username}});
         }
     }, [endTest]);
 

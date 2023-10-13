@@ -3,7 +3,8 @@ import { backendUrl } from "../../App"
 import { Questions, TestTime } from "../test/test";
 
 export interface ResultReq{
-    questions: Questions,
+    // questions: Questions,
+    questions_id: number[]
     markedOptions: string[],
     duration : TestTime,
     username : string
@@ -13,6 +14,7 @@ export interface ResultRes{
     marks: number,
     correct_marked_questions_id: number[],
     correct_answers: string[]
+    questions: Questions
     //I need to implement this
     duration: TestTime,
     attempt_date: Date,
