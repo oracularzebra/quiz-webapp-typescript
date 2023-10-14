@@ -37,12 +37,19 @@ export default function Test({loggedIn, username}:UserProps){
     useEffect(()=>{
         if (endTest) {
             const questions_id = questions?.data.map(obj=>obj.id);
-            navigate('/test/result', {state: {loggedIn, questions_id, markedOptions, duration, username}});
+            navigate('/test/result', 
+            {state: {loggedIn, questions_id, 
+                markedOptions, duration, 
+                username,
+                category,
+                difficulty}});
         }
     }, [endTest]);
 
     return (
         <>
+            {category}:
+            {difficulty}
            {
            questions  
            ?
@@ -129,7 +136,7 @@ const Counter=({testTime, setEnd, setDuration}:TimerProps)=>{
 
     const [counter, setCounter] = useState<TestTime>(testTime);
     useEffect(()=>{
-        setDuration({min: testTime.min-counter.min+1, sec:Math.abs(testTime.sec-counter.sec)});
+        setDuration({min: testTime.min-counter.min, sec:Math.abs(testTime.sec-counter.sec)});
     }, [counter])
 
     function tick(){

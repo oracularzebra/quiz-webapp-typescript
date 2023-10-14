@@ -25,7 +25,7 @@ export async function getQuestions(category:string, difficulty:string):Promise<Q
         headers:{
             category: category,
             difficulty: difficulty,            
-            noofques: '20',
+            noofques: '10',
             type: 'multiple'
         }
     })

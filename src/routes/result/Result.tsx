@@ -9,22 +9,22 @@ export default function Result(){
     //here we need questions_id because we
     //would use the same page to show previous 
     //attempts.
-    const loggedIn = location.state;
-    const {questions_id, markedOptions, duration, username}:ResultReq = location.state;
+    const {loggedIn} = location.state;
+    const req:ResultReq = location.state;
     const [result, setResult] = useState<ResultRes | null>(null);
 
     useEffect(()=>{
-        console.log(questions_id);
-        if(questions_id == undefined || markedOptions == undefined 
+        console.log(req.questions_id);
+        if(req.questions_id == undefined || req.markedOptions == undefined 
         || loggedIn == undefined || loggedIn == false) 
         navigate('/home');
 
-    }, [questions_id, markedOptions, loggedIn]);
+    }, [req.questions_id, req.markedOptions, loggedIn]);
 
     useEffect(()=>{
         (async function(){
             // const questions_id = questions?.data.map((obj:{id:number}) => obj.id);
-            const result = await getResult(questions_id, markedOptions, duration, username);
+            const result = await getResult(req);
             setResult(result);
             console.log(result);
         })();
@@ -37,7 +37,9 @@ export default function Result(){
                 ?
                 <>loading...</>
                 :
-                <>marks 
+                <>
+                {result!.category}:{result!.difficulty}                
+                marks 
                 {result!.marks}
                 <br />
                 {result.duration.min}min
@@ -53,11 +55,8 @@ export default function Result(){
                         <ul style={{listStyle:'none'}}>
                         {obj.options.map((op, index2)=>
                             {
-                                //show green color on the correct
-                                //option and red color on the incorrect
-                                //marked by you
                             const correct_answer = result.correct_answers[index1];
-                            const marked_option = markedOptions[index1];
+                            const marked_option = req.markedOptions[index1];
                             return <li key={index2} style={{
                                 color: op == correct_answer ? 
                                 correct_answer == marked_option ? 'yellow' : 'green' :
