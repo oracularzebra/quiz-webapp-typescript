@@ -24,11 +24,11 @@ export default function PreviousAttempts(props: PreviousAttemptsProps){
     }, [])
     return (
         <>
-            {attempts?.map(attempt=>{
+            {attempts?.map((attempt, index)=>{
                 return (
                     <>
-                        <button onClick={()=>{
-                            navigate('/test/result', 
+                        <button key={index} onClick={()=>{
+                            navigate(`/attempt`, 
                             {state: attempt});
                         }}>
                             {JSON.stringify(attempt)}

@@ -9,6 +9,7 @@ import Home from './routes/home/Home';
 import Test from './routes/test/Test';
 import Result from './routes/result/Result';
 import PreviousAttempts from './routes/attempts/PreviousAttempts';
+import SingleAttempt from './routes/attempts/SingleAttempt';
 
 export const backendUrl = import.meta.env.VITE_backend_url;
 
@@ -34,6 +35,8 @@ function App() {
         element={<Result/>}/>
         <Route path='/attempts'
         element={<PreviousAttempts username={user!.username}/>}/>
+        <Route path='/attempt'
+        element={<SingleAttempt/>}/>
     </Routes>
     </>
   )

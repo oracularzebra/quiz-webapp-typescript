@@ -39,7 +39,7 @@ export default function Test({loggedIn, username}:UserProps){
             const questions_id = questions?.data.map(obj=>obj.id);
             navigate('/test/result', 
             {state: {loggedIn, questions_id, 
-                markedOptions, duration, 
+                marked_options:markedOptions, duration, 
                 username,
                 category,
                 difficulty}});

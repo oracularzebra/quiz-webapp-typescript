@@ -4,16 +4,14 @@ import { Questions, TestTime } from "../test/test";
 
 export interface ResultReq{
     questions_id: number[]
-    markedOptions: string[],
+    marked_options: string[],
     duration : TestTime,
     username : string,
     category: string,
     difficulty: string,
 }
 export interface ResultRes{
-    success: boolean,
     marks: number,
-    correct_marked_questions_id: number[],
     correct_answers: string[]
     questions: Questions
     duration: TestTime,
@@ -29,7 +27,7 @@ export async function getResult(
         url:`${backendUrl}/result`,
         headers: {
             'questions_id': JSON.stringify(req.questions_id),
-            'marked_options': JSON.stringify(req.markedOptions),
+            'marked_options': JSON.stringify(req.marked_options),
             'duration' : JSON.stringify(req.duration),
             'username': req.username,
             'category': req.category,

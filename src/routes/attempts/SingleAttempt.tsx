@@ -1,47 +1,30 @@
-import { useEffect, useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
-import { ResultReq, ResultRes, getResult } from "./result";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom"
+import { getAttempt } from "./previousAttempts";
+import { ResultReq, ResultRes } from "../result/result";
 
-export default function Result(){
+export default function SingleAttempt(){
 
-    const location = useLocation();
-    const navigate = useNavigate();
-    //here we need questions_id because we
-    //would use the same page to show previous 
-    //attempts.
-    const {loggedIn} = location.state;
-    const req:ResultReq = location.state;
+    const req:ResultReq = useLocation().state;
     const [result, setResult] = useState<ResultRes | null>(null);
-
     useEffect(()=>{
         console.log(req);
-        console.log(req.questions_id);
-        if(req.questions_id == undefined || req.marked_options == undefined 
-        || loggedIn == undefined || loggedIn == false) 
-        navigate('/home');
-
-    }, [req.questions_id, req.marked_options, loggedIn]);
-
-    useEffect(()=>{
         (async function(){
-            // const questions_id = questions?.data.map((obj:{id:number}) => obj.id);
-            const result = await getResult(req);
-            setResult(result);
-            console.log(result);
-        })();
-    }, []);
-
+            const res = await getAttempt(req);
+            console.log(res);
+            setResult(res);
+        })()
+    }, [])
     return (
         <>
-            {
-                result == null
+            {result == null
                 ?
                 <>loading...</>
                 :
                 <>
-                {result!.category}:{result!.difficulty}                
+                {result.category}:{result.difficulty}                
                 marks 
-                {result!.marks}
+                {result.marks}
                 <br />
                 {result.duration.min}min
                 {result.duration.sec}sec
