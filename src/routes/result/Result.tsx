@@ -14,6 +14,7 @@ export default function Result(){
     const [result, setResult] = useState<ResultRes | null>(null);
 
     useEffect(()=>{
+        console.log(req);
         console.log(req.questions_id);
         if(req.questions_id == undefined || req.markedOptions == undefined 
         || loggedIn == undefined || loggedIn == false) 

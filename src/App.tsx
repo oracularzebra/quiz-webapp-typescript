@@ -8,24 +8,15 @@ import Landing from './routes/landing/Landing';
 import Home from './routes/home/Home';
 import Test from './routes/test/Test';
 import Result from './routes/result/Result';
+import PreviousAttempts from './routes/attempts/PreviousAttempts';
 
 export const backendUrl = import.meta.env.VITE_backend_url;
 
-// export interface UserState{
-//   username: string | undefined,
-//   loggedIn: boolean,
-// }
 function App() {
 
   const [user, setUser] = useState<User | null>({username:null, password:null});
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  // const [userState, setUserState ] = useState<UserState | null>(null);
 
-  useEffect(()=>{
-    console.log(user);
-    // if(user?.username != null)
-    // setUserState({loggedIn: loggedIn, username: user.username});
-  }, [user])
   return (
     <>
     <Routes>
@@ -41,6 +32,8 @@ function App() {
         element={<Test username={user!.username} loggedIn={loggedIn}/>}/>
         <Route path='/test/result'
         element={<Result/>}/>
+        <Route path='/attempts'
+        element={<PreviousAttempts username={user!.username}/>}/>
     </Routes>
     </>
   )

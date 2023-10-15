@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CatBox, getCategories } from "./category";
+import PreviousAttempts from "../attempts/PreviousAttempts";
 
 interface UserProps{
     username: string | null,
@@ -17,7 +18,8 @@ export default function Home({username, loggedIn}:UserProps){
         <>
             hello {username}
             <Categories/>
-            <PreviousAttempts/>
+            <button
+            onClick={()=>navigate('/attempts')}>Previous Attempts</button>
         </>
     )
 }
@@ -74,13 +76,6 @@ function Categories(){
             :
             <>loading...</>
             }
-        </>
-    )
-}
-function PreviousAttempts(){
-    return (
-        <>
-            Previous Attempts
         </>
     )
 }

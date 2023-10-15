@@ -22,10 +22,6 @@ export interface ResultRes{
     category: string
 }
 export async function getResult(
-    // questions_id: number[],
-    // markedOptions: string[],
-    // duration: TestTime,
-    // username: string
     req: ResultReq
 ):Promise<ResultRes>{
     const result = await axios({
