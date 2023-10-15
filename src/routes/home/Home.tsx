@@ -24,9 +24,15 @@ export default function Home({username, loggedIn}:UserProps){
 }
 function Categories(){
 
+    type DifficultyLevels = 'easy' | 'medium' | 'hard';
     const [categories, setCategories] = useState<CatBox[]|null>(null);
     const [expand, setExpand] = useState<boolean[] | null>(null);
     const navigate = useNavigate();
+    const [difficulty, setDifficulty] = useState<DifficultyLevels | null>(null);
+
+    const handleDifficultyChange = (level:DifficultyLevels)=>{
+        setDifficulty(level);
+    }
     useEffect(()=>{
         (async ()=>{
             const cat = await getCategories();
@@ -57,14 +63,14 @@ function Categories(){
                             <div key={key}>
                                 <button>{sub}</button>
                                 <label htmlFor="difficulty">Easy</label>
-                                <input type="radio" name="difficulty-selector" id="difficulty"/>
+                                <input onClick={()=>handleDifficultyChange('easy')} type="radio" name="difficulty-selector" id="difficulty"/>
                                 <label htmlFor="difficulty">Medium</label>
-                                <input type="radio" name="difficulty-selector" id="difficulty"/>
+                                <input onClick={()=>handleDifficultyChange('medium')} type="radio" name="difficulty-selector" id="difficulty"/>
                                 <label htmlFor="difficulty">Hard</label>
-                                <input type="radio" name="difficulty-selector" id="difficulty"/>
+                                <input onClick={()=>handleDifficultyChange('hard')} type="radio" name="difficulty-selector" id="difficulty"/>
                                 <button onClick={()=>{
                                     //Finding difficulty
-                                    navigate(`/test/${sub}/easy`)
+                                    navigate(`/test/${sub}/${difficulty}`)
                                     }
                                 }>Attempt</button>
                             </div>
