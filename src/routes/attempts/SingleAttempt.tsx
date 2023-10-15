@@ -26,8 +26,7 @@ export default function SingleAttempt(){
                 marks 
                 {result.marks}
                 <br />
-                {result.duration.min}min
-                {result.duration.sec}sec
+                {result.duration}
                 <ul style={{listStyle:'none'}}>
                     <li style={{backgroundColor:"green"}}>correct</li>
                     <li style={{backgroundColor:"orange"}}>Attempted and correct</li>
