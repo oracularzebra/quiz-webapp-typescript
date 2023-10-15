@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CatBox, getCategories } from "./category";
-import PreviousAttempts from "../attempts/PreviousAttempts";
 
 interface UserProps{
     username: string | null,
