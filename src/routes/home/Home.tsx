@@ -28,7 +28,7 @@ function Categories(){
     const [categories, setCategories] = useState<CatBox[]|null>(null);
     const [expand, setExpand] = useState<boolean[] | null>(null);
     const navigate = useNavigate();
-    const [difficulty, setDifficulty] = useState<DifficultyLevels | null>(null);
+    const [difficulty, setDifficulty] = useState<DifficultyLevels | null>('easy');
 
     const handleDifficultyChange = (level:DifficultyLevels)=>{
         setDifficulty(level);
@@ -68,8 +68,8 @@ function Categories(){
                                 <input onClick={()=>handleDifficultyChange('medium')} type="radio" name="difficulty-selector" id="difficulty"/>
                                 <label htmlFor="difficulty">Hard</label>
                                 <input onClick={()=>handleDifficultyChange('hard')} type="radio" name="difficulty-selector" id="difficulty"/>
+                                {/* <input type="number" max={20} min={5}/> */}
                                 <button onClick={()=>{
-                                    //Finding difficulty
                                     navigate(`/test/${sub}/${difficulty}`)
                                     }
                                 }>Attempt</button>
