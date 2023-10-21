@@ -28,7 +28,7 @@ export default function Test({loggedIn, username}:UserProps){
                 Array.from({length:result.data.length})
                 .map(_=>"undefined")
             )
-            setTestTime({min: result.data.length , sec:0})
+            setTestTime({min: result.data.length - 1, sec:59})
             if(result.data.length > 0) setSelectedQuestionId(0);
             })();
         }

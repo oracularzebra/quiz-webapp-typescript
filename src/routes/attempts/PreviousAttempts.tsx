@@ -11,6 +11,7 @@ export default function PreviousAttempts(props: PreviousAttemptsProps){
     const navigate = useNavigate();
     const [attempts, setAttempts] = useState<ResultReq[] | null>(null);
 
+    // Object.assign(attempts, {attemptid: number});
     useEffect(()=>{
         (async function(){
             console.log(props.username);
@@ -24,10 +25,13 @@ export default function PreviousAttempts(props: PreviousAttemptsProps){
     }, [])
     return (
         <>
-            {attempts?.map((attempt, index)=>{
+            {attempts?.map((attempt)=>{
+                //we're also getting attemptid so using it here 
+                //as the key
+                const attemptwithId = Object.assign(attempt, {attemptid: typeof Number});
                 return (
                     <>
-                        <button key={index} onClick={()=>{
+                        <button key={attemptwithId.attemptid} onClick={()=>{
                             navigate(`/attempt`, 
                             {state: attempt});
                         }}>
