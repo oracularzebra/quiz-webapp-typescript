@@ -14,12 +14,24 @@ export default function SignUp({user,setUser, setLoggedIn}: UserProps){
     }, [res])
 
     return (
-        <>
-        <form method='post' onSubmit={(e)=> {
+        <div>
+            <form method='post' onSubmit={(e)=> {
                 e.preventDefault(); 
             }}>
-                <ul> 
-                    <li>
+                <ul
+                className="grid
+                           absolute
+                           bottom-52
+                           left-52
+                           top-48
+                           right-48
+                           m-auto
+                           place-content-center
+                          "
+                style={{listStyle:'none'}}> 
+                    <li
+                      className="m-2"
+                      >
                         <label htmlFor='username'>Username:</label>
                         <input type="text" id='username' name='username' 
                         onChange={(e)=>{
@@ -27,21 +39,27 @@ export default function SignUp({user,setUser, setLoggedIn}: UserProps){
                         }
                         }/>
                     </li>
-                    <li>
+                    <li
+                      className="m-2"
+                    >
                         <label htmlFor='password'>Password:</label>
                         <input type="password" id='password' name='password'
                         onChange={(e)=>setUser({username:user.username, password:e.currentTarget.value})}/>
                     </li>
-                    <li>
-                        <button type="submit" onClick={async ()=>{
+                    <li
+                    className="m-2 justify-self-center"
+                    >
+                        <button className="bg-slate-200 p-1 rounded-lg" type="submit" onClick={async ()=>{
                             setRes(await sign_up(user))
                         }}>Register</button>
                     </li>
-                    <li>
+                    <li
+                      className="justify-self-center"
+                    >
                         {res?.message}
                     </li>
                 </ul>   
             </form>
-        </>
+        </div>
     )
 }
