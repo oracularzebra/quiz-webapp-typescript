@@ -72,6 +72,7 @@ export default function Result(){
                 )}
                 </>
             }
+            <button onClick={()=>navigate('/home')}>Return to home</button>
         </>
     )
 }
