@@ -2,8 +2,12 @@ import axios from "axios";
 import { backendUrl } from "../../App";
 import { ResultReq, ResultRes } from "../result/result";
 
+export interface PreviousAttemptsResponse extends ResultReq{
+    attempt_id: number,
+    attempt_date: string
+}
 //This function will give us an array of ResultReqs
-export async function getAttempts(username:string):Promise<{success: boolean, data:ResultReq[]}>{
+export async function getAttempts(username:string):Promise<{success: boolean, data:PreviousAttemptsResponse[]}>{
     const result = await axios({
         method: 'get',
         url: `${backendUrl}/getAttempts`,

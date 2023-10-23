@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAttempts } from "./previousAttempts"
-import { ResultReq } from "../result/result"
+import { PreviousAttemptsResponse, getAttempts } from "./previousAttempts"
 import { useNavigate } from "react-router-dom"
 
 interface PreviousAttemptsProps{
@@ -9,37 +8,35 @@ interface PreviousAttemptsProps{
 export default function PreviousAttempts(props: PreviousAttemptsProps){
 
     const navigate = useNavigate();
-    const [attempts, setAttempts] = useState<ResultReq[] | null>(null);
+    const [attempts, setAttempts] = useState<PreviousAttemptsResponse[] | null>(null);
 
-    // Object.assign(attempts, {attemptid: number});
     useEffect(()=>{
+        if(props.username == null) navigate('/');
         (async function(){
-            console.log(props.username);
-            // if(props.username != null){
-                const result = await getAttempts(props.username!);
-                if(result.success){
-                    setAttempts(result.data);
-                }
-            // }
+            const result = await getAttempts(props.username!);
+            if(result.success){
+                setAttempts(result.data);
+                console.log(result);
+            }
         })()
     }, [])
     return (
         <>
-            {attempts?.map((attempt)=>{
-                //we're also getting attemptid so using it here 
-                //as the key
-                const attemptwithId = Object.assign(attempt, {attemptid: typeof Number});
+            {attempts != null ?attempts.map((attempt)=>{
                 return (
                     <>
-                        <button key={attemptwithId.attemptid} onClick={()=>{
+                        <button key={attempt.attempt_id} onClick={()=>{
                             navigate(`/attempt`, 
                             {state: attempt});
                         }}>
-                            {JSON.stringify(attempt)}
+                        {`${attempt.attempt_date.slice(0, 15)}
+                        ${attempt.category}:${attempt.difficulty}`}
                         </button>
                     </>
                 )
-            })}
+            })
+            :
+            <>loading</>}
         </>
     )
 }
