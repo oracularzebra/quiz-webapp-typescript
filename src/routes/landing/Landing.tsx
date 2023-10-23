@@ -25,8 +25,10 @@ export default function Landing(){
                   <p>Already a user ?</p>
                   <Link 
                   className="                             
+                      bg-slate-300
+                      p-2
                       marker:p-2 border-2
-                      rounded-sm
+                      rounded-lg
                       text-lg
                       border-red-200
                       border-r-2
@@ -42,8 +44,10 @@ export default function Landing(){
                   <p>Not an existing user ?</p>
                   <Link 
                   className="
+                     bg-slate-300
+                      p-2
                       marker:p-2 border-2
-                      rounded-sm
+                      rounded-lg
                       text-lg
                       border-red-200
                       border-r-2
