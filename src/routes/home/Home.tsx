@@ -60,7 +60,7 @@ function Categories(){
                     {
                         expand[key] &&
                         cat.sub_categories.map((sub, key) => (
-                            <div key={key}>
+                            <div className="bg-red-200" key={key}>
                                 <button>{sub}</button>
                                 <label htmlFor="difficulty">Easy</label>
                                 <input onClick={()=>handleDifficultyChange('easy')} type="radio" name="difficulty-selector" id="difficulty"/>
