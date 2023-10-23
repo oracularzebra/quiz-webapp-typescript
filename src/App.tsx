@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './App.css';
 import { User } from './routes/user/user';
 import { Route, Routes } from 'react-router-dom';
 import SignUp from './routes/user/SignUp';
