@@ -5,17 +5,6 @@ export default function Landing(){
     return (
         <div className="text-lg">
             <div 
-            className=
-            "flex place-items-center flex-col">
-                <h2
-                className="
-                text-center
-                mt-4
-                text-2xl"
-                >Welcome to Quizze</h2>
-                <p>An open-source trivial quiz websitec</p>  
-            </div>
-            <div 
             className="h-screen grid sm:grid-cols-2">
               <div
               className="
