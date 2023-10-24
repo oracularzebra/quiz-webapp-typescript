@@ -19,6 +19,7 @@ function App() {
 
   return (
     <>
+    <Header></Header> 
     <Routes>
         <Route path='/'
         element={<Landing/>}/>
@@ -37,7 +38,27 @@ function App() {
         <Route path='/attempt'
         element={<SingleAttempt/>}/>
     </Routes>
+    <Footer></Footer>
     </>
+  )
+}
+function Header(){
+
+  return (
+    <div 
+    className='grid place-items-center bg-blue-200'>
+      <h1 
+      className='text-3xl'>Quizze</h1>
+      <p>An open-source trivial quiz website</p>
+    </div>
+  )
+}
+function Footer(){
+
+  return (
+    <div>
+      
+    </div>
   )
 }
 export default App;
