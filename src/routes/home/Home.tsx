@@ -14,12 +14,16 @@ export default function Home({username, loggedIn}:UserProps){
         if(!loggedIn) navigate('/');
     }, [loggedIn]);
     return (
-        <>
-            hello {username}
+        <div 
+        className="grid place-items-center">
+            <h3 className="text-xl">
+            Hello, {username} !
+            </h3>
             <Categories/>
             <button
+            className="text-lg bg-slate-200 rounded-lg p-2"
             onClick={()=>navigate('/attempts')}>Previous Attempts</button>
-        </>
+        </div>
     )
 }
 function Categories(){
@@ -50,8 +54,12 @@ function Categories(){
             categories != null && expand != null
             ?
             categories.map((cat, key)=>(
-                <div key={key}>
-                    <button onClick={()=>{
+                <div
+                className="p-2 bg-slate-200 m-2 rounded-lg" 
+                key={key}>
+                    <button 
+                        className="text-lg"
+                        onClick={()=>{
                         const newExpand = new Array(categories.length).fill(false);
                         newExpand[key] = !expand[key];
                         setExpand(newExpand);
@@ -60,16 +68,27 @@ function Categories(){
                     {
                         expand[key] &&
                         cat.sub_categories.map((sub, key) => (
-                            <div className="bg-red-200" key={key}>
-                                <button>{sub}</button>
-                                <label htmlFor="difficulty">Easy</label>
-                                <input onClick={()=>handleDifficultyChange('easy')} type="radio" name="difficulty-selector" id="difficulty"/>
-                                <label htmlFor="difficulty">Medium</label>
-                                <input onClick={()=>handleDifficultyChange('medium')} type="radio" name="difficulty-selector" id="difficulty"/>
-                                <label htmlFor="difficulty">Hard</label>
-                                <input onClick={()=>handleDifficultyChange('hard')} type="radio" name="difficulty-selector" id="difficulty"/>
+                            <div className="m-2 flex place-items-center gap-2" key={key}>
+                                <h3
+                                className="p-2 text-lg border-lime-600 border-r-2"
+                                >{sub}
+                                </h3>
+                                {Array.of('easy', 'medium', 'hard').map(level=> 
+                                <div className="flex place-items-center">
+                                  <label
+                                  className="text-lg m-2" 
+                                  htmlFor="difficulty">{level}</label>
+                                  <input
+                                  className=""
+                                  onClick={()=>handleDifficultyChange(level as DifficultyLevels)}
+                                  type="radio"
+                                  name="difficulty-selector"
+                                  id="difficulty"/>
+                                </div>)}
                                 {/* <input type="number" max={20} min={5}/> */}
-                                <button onClick={()=>{
+                                <button 
+                                    className="text-lg bg-slate-500 rounded-lg p-2"
+                                    onClick={()=>{
                                     navigate(`/test/${sub}/${difficulty}`)
                                     }
                                 }>Attempt</button>
