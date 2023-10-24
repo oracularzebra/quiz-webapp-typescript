@@ -3,4 +3,4 @@
 
 ### This project is currently in development.
 
-### The frontend is hosted on Cloudfare's Network, here is the [link](quiz-webapp-typescript.pages.dev/)
+### The frontend is hosted on Cloudfare's Network, here is the [link](https://quiz-webapp-typescript.pages.dev/)
