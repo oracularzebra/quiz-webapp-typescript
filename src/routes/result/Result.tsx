@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { ResultReq, ResultRes, getResult } from "./result";
+import LeaderBoard from "../home/LeaderBoard";
 
 export default function Result(){
 
@@ -87,6 +88,9 @@ export default function Result(){
                 )}
                 </>
             }
+            <div>
+              <LeaderBoard></LeaderBoard>
+            </div>
             <div 
             className="place-self-center">
               <button
