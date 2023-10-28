@@ -10,7 +10,7 @@ export default function SingleAttempt(){
     const req:ResultReq = useLocation().state;
     const [result, setResult] = useState<ResultRes | null>(null);
     useEffect(()=>{
-        console.log(req);
+        if(req == null) navigate('/');
         (async function(){
             const res = await getAttempt(req);
             console.log(res);
