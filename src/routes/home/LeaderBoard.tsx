@@ -1,15 +1,26 @@
 import { useEffect, useState } from "react";
 import { getLeaders, Leader } from "./leaderboard";
+import { useNavigate } from "react-router-dom";
 
-function LeaderBoard(){
+interface LeaderBoardProps {
+  category: string | null,
+  difficulty: string | null
+}
+function LeaderBoard(props:LeaderBoardProps){
 
   const [leaders, setLeaders] = useState<Leader[] | null>(null);
   
+  const navigate = useNavigate();
+  
   useEffect(()=>{
     (async()=>{
-      const result = await getLeaders('Gadgets', 'easy');
-      console.log(result.data);
-      if(result.success) setLeaders(result.data);
+      console.log(props.category, props.difficulty);
+      // if(props.category == null || props.difficulty == null) navigate('/');
+      // else {
+        const result = await getLeaders(props?.category!, props?.difficulty!);
+        console.log(result.data);
+        if(result.success) setLeaders(result.data);
+      // }
     })()
 },[])
     return (

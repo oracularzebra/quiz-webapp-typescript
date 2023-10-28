@@ -86,10 +86,10 @@ export default function Result(){
                         </ul>
                     </div>)
                 )}
+                <LeaderBoard category={result?.category!} difficulty={result?.difficulty!}></LeaderBoard>
                 </>
             }
             <div>
-              <LeaderBoard></LeaderBoard>
             </div>
             <div 
             className="place-self-center">

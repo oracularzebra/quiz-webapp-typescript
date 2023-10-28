@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom"
 import { getAttempt } from "./previousAttempts";
 import { ResultReq, ResultRes } from "../result/result";
+import LeaderBoard from "../home/LeaderBoard";
 
 export default function SingleAttempt(){
 
@@ -74,6 +75,7 @@ export default function SingleAttempt(){
                         </ul>
                     </div>)
                 )}
+              <LeaderBoard category={result?.category} difficulty={result?.difficulty}></LeaderBoard>
                 </>
             }
             <div 
