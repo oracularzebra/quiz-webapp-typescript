@@ -15,12 +15,12 @@ function LeaderBoard(props:LeaderBoardProps){
   useEffect(()=>{
     (async()=>{
       console.log(props.category, props.difficulty);
-      // if(props.category == null || props.difficulty == null) navigate('/');
-      // else {
+      if(props.category == null || props.difficulty == null) navigate('/');
+      else {
         const result = await getLeaders(props?.category!, props?.difficulty!);
         console.log(result.data);
         if(result.success) setLeaders(result.data);
-      // }
+      }
     })()
 },[])
     return (
