@@ -1,16 +1,20 @@
 import axios from "axios"
 import { backendUrl } from "../../App"
 
+export interface LeadersRes {
+  success: boolean,
+  data: Leader[]
+}
 export interface Leader{
   username: string,
   marks: number,
   duration: {min:number, sec:number},
-  overall_marks: number
+  combined_score: number
 }
 export async function getLeaders(
   category: string,
   difficulty: string
-):Promise<Leader[]>{
+):Promise<LeadersRes>{
 
   const req = await axios({
     url:`${backendUrl}/getLeaders`,
