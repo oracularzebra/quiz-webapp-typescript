@@ -1,5 +1,6 @@
 import axios from "axios";
 import { backendUrl } from "../../App";
+import { sha256 } from "js-sha256";
 
 export interface Admin{
   username: string | null,
@@ -21,7 +22,7 @@ Promise<AdminLoginRes>{
       url:`${backendUrl}/admin/sign-in`,
       headers:{
         "username": admin.username,
-        "password": admin.password
+        "password": admin.password != null && sha256(admin.password) 
       }
     })
     return request.data;
