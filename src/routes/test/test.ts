@@ -73,7 +73,6 @@ export function handleMarkOption(
     markedOption: string
 ):void{
     //If already marked we'll unmark it
-    console.log(already_marked);
     setMarkedOptions(options=>options.map(
       (old_option, index)=>{
           if(index == current_index) {

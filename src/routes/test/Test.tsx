@@ -51,7 +51,7 @@ export default function Test({ loggedIn, username }: UserProps) {
   }, [endTest]);
 
   return (
-    <div className="">
+    <div className="m-4 sm:m-0">
       <div className="flex place-content-center">
         <h2 className="text-lg">
           {category}:
@@ -128,15 +128,13 @@ function Question(props: QuestionTypeProps) {
       </h2>
       {props.options.map((option, key) => (
         <div 
-        className="p-1"
+        className="p-1 ml-4 sm:ml-0"
         key={key}>
+          <label className="text-md font-medium flex gap-1">
           <input
+            className="scale-110"
             checked={props.markedOptions[props.index!] == option ? true : false}
             onClick={(e)=>{
-              // console.log('clicked')
-              // console.log(e.currentTarget.checked)
-              console.log(e);
-              console.log(props.markedOptions[props.index!])
               const checked = e.currentTarget.value == props.markedOptions[props.index!]
               handleMarkOption(
                 props.index!,
@@ -146,9 +144,8 @@ function Question(props: QuestionTypeProps) {
               );
             }}
             type="radio" name={`${props.id}`} value={option} />
-          <label
-          className="text-md font-medium p-1"
-          htmlFor="">{option}</label>
+          <p>{option}</p>
+          </label>
         </div>
       ))}
     </div>
