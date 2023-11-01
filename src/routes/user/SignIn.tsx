@@ -61,6 +61,11 @@ export default function SignIn({user,setUser, setLoggedIn}: UserProps){
                     </li>
                 </ul>   
             </form>
+            <p
+            className="flex place-content-center"
+            >NOTE:The server auto-suspends after 5 minutes
+              of inactivity, and may takes 20sec to start.
+            </p>
         </div>
     )
 }
