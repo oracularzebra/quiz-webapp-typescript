@@ -51,6 +51,15 @@ function LeaderBoard(props:LeaderBoardProps){
           })} 
             </tbody>
           </table>
+          <p
+          className="text-center"
+          >
+            Note:The combined_score is calculated 
+            using the formula: <br />
+            marks - total_duration(in seconds)/scale_factor <br />
+            changing the scale factors, changes the affect
+            of marks and duration, currently it is 50.
+          </p>
         </div>
     )
 }
