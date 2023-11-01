@@ -68,14 +68,19 @@ export function handleNextPrev(
 }
 export function handleMarkOption(
     current_index: number,
+    already_marked:boolean,
     setMarkedOptions: React.Dispatch<React.SetStateAction<string[]>>,
     markedOption: string
 ):void{
-    console.log(current_index);
+    //If already marked we'll unmark it
+    console.log(already_marked);
     setMarkedOptions(options=>options.map(
-        (old_option, index)=>{
-            if(index == current_index) return markedOption;
-            return old_option;
-        }
+      (old_option, index)=>{
+          if(index == current_index) {
+            if(already_marked) return 'undefined'
+            else return markedOption
+          };
+          return old_option;
+      }
     ))
 }

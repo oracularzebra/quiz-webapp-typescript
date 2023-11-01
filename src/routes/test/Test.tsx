@@ -132,13 +132,20 @@ function Question(props: QuestionTypeProps) {
         key={key}>
           <input
             checked={props.markedOptions[props.index!] == option ? true : false}
-            onChange={() => {
+            onClick={(e)=>{
+              // console.log('clicked')
+              // console.log(e.currentTarget.checked)
+              console.log(e);
+              console.log(props.markedOptions[props.index!])
+              const checked = e.currentTarget.value == props.markedOptions[props.index!]
               handleMarkOption(
                 props.index!,
+                checked,
                 props.setMarkedOptions,
                 option
               );
-            }} type="radio" name={`${props.id}`} value={option} />
+            }}
+            type="radio" name={`${props.id}`} value={option} />
           <label
           className="text-md font-medium p-1"
           htmlFor="">{option}</label>
