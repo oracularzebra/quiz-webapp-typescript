@@ -1,20 +1,27 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { backendUrl } from "../../App";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function AdminDashBoard(){
 
+  const location = useLocation();
+  const {username} = location.state;
+
+  const navigate = useNavigate();
   const [noOfUsers, setNoOfUsers] = useState<number>(0);
   useEffect(()=>{
-    (async()=>{
-      const noOfUsersReq = await axios({
-        url:`${backendUrl}/admin/get-users`
-      });
-      //Here we are getting a full blown object
-      //involving all the headers, data obj only is 
-      //of need here
-      setNoOfUsers(noOfUsersReq.data.data);
-    })();
+    if(username == null) navigate('/');
+    else 
+      (async()=>{
+        const noOfUsersReq = await axios({
+          url:`${backendUrl}/admin/get-users`
+        });
+        //Here we are getting a full blown object
+        //involving all the headers, data obj only is 
+        //of need here
+        setNoOfUsers(noOfUsersReq.data.data);
+      })();
   }, [])
   
   return (
