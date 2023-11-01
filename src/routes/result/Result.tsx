@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { ResultReq, ResultRes, getResult } from "./result";
-import LeaderBoard from "../home/LeaderBoard";
+import LeaderBoard from "./leaderboard/LeaderBoard";
 
 export default function Result(){
 

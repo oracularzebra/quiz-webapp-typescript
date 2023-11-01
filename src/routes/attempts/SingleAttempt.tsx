@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom"
 import { getAttempt } from "./previousAttempts";
 import { ResultReq, ResultRes } from "../result/result";
-import LeaderBoard from "../home/LeaderBoard";
+import LeaderBoard from "../result/leaderboard/LeaderBoard";
 
 export default function SingleAttempt(){
 

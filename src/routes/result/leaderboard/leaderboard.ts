@@ -1,5 +1,5 @@
 import axios from "axios"
-import { backendUrl } from "../../App"
+import { backendUrl } from "../../../App"
 
 export interface LeadersRes {
   success: boolean,
