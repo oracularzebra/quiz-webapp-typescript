@@ -40,7 +40,6 @@ function Categories(){
     useEffect(()=>{
         (async ()=>{
             const cat = await getCategories();
-            console.log(cat);
             if(cat.success){
                 setCategories(cat.data);
             }
