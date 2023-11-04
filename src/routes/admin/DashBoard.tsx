@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { backendUrl } from "../../App";
 import { useLocation, useNavigate } from "react-router-dom";
-import { QuestionType, handleButtonDisabled } from "./dashboard";
+import { QuestionType, handleButtonDisabled, handleSubmit } from "./dashboard";
 import { CatBox, getCategories } from "../home/category";
 
 export function AdminDashBoard(){
@@ -15,8 +15,8 @@ export function AdminDashBoard(){
   const [selectedCatAndSubCat, setSelectedCatAndSubCat] = useState<{category:string | null, subcategory:string | null} | null>(null);
   const [noOfUsers, setNoOfUsers] = useState<number>(0);
   const [questionType, setQuestionType] = useState<QuestionType | null>(null);
-  const [question, options] = useState<{question: string, options: string[]} | null>(null);
-
+  const [question, setQuestion] = useState<{question: string, options: string[]} | null>(null);
+  const [difficulty, setDifficlty] = useState<'easy' | 'medium' | 'hard' | null>(null);
 
   useEffect(()=>{
     if(state == null || 
@@ -32,11 +32,14 @@ export function AdminDashBoard(){
         //of need here
         setNoOfUsers(noOfUsersReq.data.data);
         const categories = await getCategories();
-        console.log(categories);
         if(categories.success) setCategories(categories.data);
       })();
   }, [])
-  
+ 
+  useEffect(()=>{
+    console.log(question);
+  }, [question])
+
   return (
     <div className="grid justify-center">
       <div className="grid justify-center">
@@ -54,14 +57,18 @@ export function AdminDashBoard(){
           Add questions
       </h1>
       <div
-      className="flex
+      className="grid
                 place-content-center
                 gap-2
                 flex-wrap">
         <div>
           <label htmlFor="">
             Enter question 
-            <input type="text" />
+            <input type="text" onChange={(e)=>{
+              const currquestion: typeof question = {question: e.currentTarget.value, 
+              options: Array.from({length:4})}
+              setQuestion(currquestion);
+            }}/>
           </label>
           <button
           onClick={()=>setQuestionType((prev)=>prev == null ? 'TRUE&FALSE' : null)}
@@ -70,52 +77,78 @@ export function AdminDashBoard(){
           onClick={()=>setQuestionType((prev)=>prev == null ? 'MULTIPLECHOICE' : null)}
           className="p-2 bg-slate-400 rounded-xl">Add multiple choice</button>
           {questionType == 'MULTIPLECHOICE' && 
-            <ul className="grid gap-2">
+            <ul className="grid gap-2 justify-center">
               {Array.from({length:4}).map((_,index)=>{
                 return (<li className="" key={index}>
                   <label htmlFor="">
                     {`Option ${index} `}
-                    <input type="text" />
+                    <input type="text" 
+                    disabled={question == null || question?.question.length == 0}
+                    onChange={(e)=>{
+                      const options = question?.options.map((op,index2)=>{
+                        if(index2 == index) return e.currentTarget.value;
+                        else return op;
+                      })
+                      setQuestion({question: question?.question!, options: options!})
+                    }}/>
                   </label>
                 </li>)
               })}
             </ul>
           }
-          <button
-            className="bg-slate-400 rounded-lg"
-            disabled= {handleButtonDisabled(questionType!, question!)}
-            onClick={()=>{}}
-          >
-            Add
-          </button>
+          
         </div>
         <div className="flex flex-wrap gap-3">
-          {/* TODO: Here we'll show the categories and subcategories */}
           {categories != null &&
           categories.map((cat, key)=>( 
             <div
-            className="flex flex-wrap"
+            className="grid w-screen place-content-center"
             key={key}>
-              <input
-              className="scale-110"
-              name="category" type="radio" />{cat.category}
-              <div className="flex flex-wrap">
+              <p
+              className="text-center border-b-2 border-b-green-200"
+              >{cat.category}
+              </p>
+              <div className="flex gap-2 flex-wrap justify-center">
                 {cat.sub_categories.map((subCat,key)=>(
                   <div
                   key={key}>
-                    <input
-                    className="scale-110"
-                    onClick={()=>setSelectedCatAndSubCat(prev => {
-                      if(prev == null) return {category: null, subcategory: subCat}
-                      else return {category: prev.category, subcategory: subCat}})}
-                    name="subcat" type="radio" />{subCat}
-                  </div>
+                    <label>
+                      <input
+                      className="scale-110"
+                      onClick={()=>setSelectedCatAndSubCat({category: cat.category, subcategory: subCat})}
+                      name="subcat" type="radio" />{subCat}
+                    </label>
+                 </div>
                 ))}
               </div>
             </div>
             )
           )}
         </div>
+        <h1 className="text-center border-b-2 border-b-green-200">Add difficulty:</h1>
+        <div className="place-content-center flex flex-wrap gap-2">
+          <label>
+            <input className="scale-110" name="difficulty" type="radio"
+            onChange={()=>setDifficlty('easy')}/>
+            easy
+          </label>
+          <label>
+            <input className="scale-110" name="difficulty" type="radio"
+            onChange={()=>setDifficlty('medium')}/>
+            medium
+          </label>
+          <label>
+          <input className="scale-110" name="difficulty" type="radio" onChange={()=>setDifficlty('hard')}/>
+            hard
+          </label>
+        </div>
+        <button
+            className="bg-slate-400 justify-self-center rounded-lg p-2"
+            disabled= {handleButtonDisabled(difficulty, questionType!, question!, selectedCatAndSubCat!)}
+            onClick={()=>{handleSubmit(question, selectedCatAndSubCat, difficulty)}}
+          >
+            Add
+        </button>
       </div>
     </div>
   )
