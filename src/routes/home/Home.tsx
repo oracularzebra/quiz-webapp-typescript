@@ -67,7 +67,7 @@ function Categories(){
                     {
                         expand[key] &&
                         cat.sub_categories.map((sub, key) => (
-                            <div className="m-2 flex place-items-center gap-2" key={key}>
+                            <div className="m-2 flex flex-wrap place-items-center gap-2" key={key}>
                                 <h3
                                 className="p-2 text-lg border-lime-600 border-r-2"
                                 >{sub}
@@ -76,13 +76,14 @@ function Categories(){
                                 <div className="flex place-items-center">
                                   <label
                                   className="text-lg m-2" 
-                                  htmlFor="difficulty">{level}</label>
-                                  <input
-                                  className=""
-                                  onClick={()=>handleDifficultyChange(level as DifficultyLevels)}
-                                  type="radio"
-                                  name="difficulty-selector"
-                                  id="difficulty"/>
+                                  >
+                                   <input
+                                    className=""
+                                    onClick={()=>handleDifficultyChange(level as DifficultyLevels)}
+                                    type="radio"
+                                    name="difficulty-selector"
+                                    />{level}
+                                  </label>
                                 </div>)}
                                 {/* <input type="number" max={20} min={5}/> */}
                                 <button 
