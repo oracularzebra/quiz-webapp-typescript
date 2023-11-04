@@ -5,7 +5,7 @@ export function handleSubmit(
   selectedCategoryAndSubCategory : {category: string | null, subcategory: string | null} | null,
   difficulty: 'easy' | 'medium' | 'hard' | null
 ){
-
+  console.log(question, selectedCategoryAndSubCategory, difficulty);
 }
 export function handleButtonDisabled(
   difficulty : string | null,
