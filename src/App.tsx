@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { User } from './routes/user/user';
-import { Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import SignUp from './routes/user/SignUp';
 import SignIn from './routes/user/SignIn';
 import Landing from './routes/landing/Landing';
@@ -56,8 +56,9 @@ function Header(){
   return (
     <div 
     className='grid place-items-center bg-blue-200'>
-      <h1 
-      className='text-3xl'>Quizze</h1>
+      <Link 
+      to={'/home'}
+      className='text-3xl'>Quizze</Link>
       <p>An open-source trivial quiz website</p>
     </div>
   )
