@@ -134,7 +134,7 @@ function Question(props: QuestionTypeProps) {
           <input
             className="scale-110"
             checked={props.markedOptions[props.index!] == option ? true : false}
-            onClick={(e)=>{
+            onChange={(e)=>{
               const checked = e.currentTarget.value == props.markedOptions[props.index!]
               handleMarkOption(
                 props.index!,
