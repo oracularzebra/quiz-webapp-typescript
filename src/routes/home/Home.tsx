@@ -72,8 +72,8 @@ function Categories(){
                                 className="p-2 text-lg border-lime-600 border-r-2"
                                 >{sub}
                                 </h3>
-                                {Array.of('easy', 'medium', 'hard').map(level=> 
-                                <div className="flex place-items-center">
+                                {Array.of('easy', 'medium', 'hard').map((level, key)=> 
+                                <div key={key} className="flex place-items-center">
                                   <label
                                   className="text-lg m-2" 
                                   >
