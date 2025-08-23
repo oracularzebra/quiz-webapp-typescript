@@ -9,8 +9,6 @@ import Test from './routes/test/Test';
 import Result from './routes/result/Result';
 import PreviousAttempts from './routes/attempts/PreviousAttempts';
 import SingleAttempt from './routes/attempts/SingleAttempt';
-import AdminLogin from './routes/admin/Login';
-import { AdminDashBoard } from './routes/admin/DashBoard';
 import NotFound from './routes/NotFound';
 
 export const backendUrl = import.meta.env.VITE_backend_url;
@@ -40,10 +38,6 @@ function App() {
         element={<PreviousAttempts username={user!.username}/>}/>
         <Route path='/attempt'
         element={<SingleAttempt/>}/>
-        <Route path='/admin/login'
-        element={<AdminLogin/>}/>
-        <Route path='/admin/DashBoard'
-        element={<AdminDashBoard/>}/>
         <Route path='/*'
         element={<NotFound/>}/>
     </Routes>
