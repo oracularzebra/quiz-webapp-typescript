@@ -12,7 +12,7 @@
   --primary-hover: #4338ca;
   --secondary-color: #10b981;
   --accent-color: #f59e0b;
-  /* --background-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  --background-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --card-shadow: 0 10px 25px rgba(0,0,0,0.1);
   --hover-shadow: 0 15px 35px rgba(0,0,0,0.15);
   
