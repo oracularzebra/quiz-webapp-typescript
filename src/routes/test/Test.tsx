@@ -51,103 +51,129 @@ export default function Test({ loggedIn, username }: UserProps) {
   }, [endTest]);
 
   return (
-    <div className="m-4 sm:m-0">
-      <div className="flex place-content-center">
-        <h2 className="text-lg">
-          {category}:
-        </h2>
-        <h2 className="text-lg">
-          {difficulty}
-        </h2>
-      </div>
-      {
-        questions
-          ?
-          <>
-            <Counter
-              setDuration={setDuration}
-              testTime={testTime!}
-              setEnd={setEndTest}
-            />
-            <QuestionNumbersArray
-              length={questions.data.length}
-              setSelectedQuestionId={setSelectedQuestionId} />
-            <Question
-              index={selectedQuestionId!}
-              id={questions.data[selectedQuestionId!].id}
-              options={questions.data[selectedQuestionId!].options}
-              question={questions.data[selectedQuestionId!].question}
-              setMarkedOptions={setMarkedOtions}
-              markedOptions={markedOptions}
-            />
-            <div className="flex place-content-center">
+    <div className="min-h-screen">
+      <div className="container mx-auto px-6 py-8">
+        {/* Header */}
+        <div className="text-center mb-8 fade-in">
+          <div className="card p-6">
+            <h1 className="text-3xl font-bold gradient-text mb-2">
+              📚 {category} Quiz
+            </h1>
+            <p className="text-gray-600 text-lg capitalize">
+              🎯 Difficulty: <span className="font-semibold">{difficulty}</span>
+            </p>
+          </div>
+        </div>
+
+        {questions ? (
+          <div className="max-w-4xl mx-auto space-y-6">
+            {/* Timer */}
+            <div className="card p-4">
+              <Counter
+                setDuration={setDuration}
+                testTime={testTime!}
+                setEnd={setEndTest}
+              />
+            </div>
+
+            {/* Question Navigation */}
+            <div className="card p-6">
+              <QuestionNumbersArray
+                length={questions.data.length}
+                setSelectedQuestionId={setSelectedQuestionId} 
+              />
+            </div>
+
+            {/* Question */}
+            <div className="card p-8">
+              <Question
+                index={selectedQuestionId!}
+                id={questions.data[selectedQuestionId!].id}
+                options={questions.data[selectedQuestionId!].options}
+                question={questions.data[selectedQuestionId!].question}
+                setMarkedOptions={setMarkedOtions}
+                markedOptions={markedOptions}
+              />
+            </div>
+
+            {/* Navigation Controls */}
+            <div className="flex justify-center gap-4">
               <button
-                className="bg-slate-400 p-2 m-1 rounded-xl"
+                className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 onClick={() => handleNextPrev(
                   'prev',
                   questions.data.length,
                   selectedQuestionId!,
                   setSelectedQuestionId,
                 )}
-              >Previous</button>
+              >
+                ⬅️ Previous
+              </button>
               <button
-                className="bg-slate-400 p-2 m-1 rounded-xl"
+                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 onClick={() => handleNextPrev(
                   'next',
                   questions.data.length,
                   selectedQuestionId!,
                   setSelectedQuestionId,
                 )}
-              >Next</button>
+              >
+                Next ➡️
+              </button>
               <button
-                className="bg-slate-400 p-2 m-1 rounded-xl"
+                className="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 onClick={() => setEndTest(true)}
-                type="submit">End Test</button>
+                type="submit">
+                🏁 End Test
+              </button>
             </div>
-          </>
-          :
-          <>loading</>
-      }
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <div className="pulse-animation text-white/80 text-lg">
+              🔄 Loading quiz questions...
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
 function Question(props: QuestionTypeProps) {
 
   return (
-    <div 
-    className="bg-slate-300
-    rounded-xl 
-    grid 
-    place-content-left 
-    gap-2"
-    >
-      <h2
-      className="text-lg">
-        Q{props.index! + 1}
-        {props.question}
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">
+        <span className="text-blue-600">Q{props.index! + 1}.</span> {props.question}
       </h2>
-      {props.options.map((option, key) => (
-        <div 
-        className="p-1 ml-4 sm:ml-0"
-        key={key}>
-          <label className="text-md font-medium flex gap-1">
-          <input
-            className="scale-110"
-            checked={props.markedOptions[props.index!] == option ? true : false}
-            onChange={(e)=>{
-              const checked = e.currentTarget.value == props.markedOptions[props.index!]
-              handleMarkOption(
-                props.index!,
-                checked,
-                props.setMarkedOptions,
-                option
-              );
-            }}
-            type="radio" name={`${props.id}`} value={option} />
-          <p>{option}</p>
+      
+      <div className="space-y-3">
+        {props.options.map((option, key) => (
+          <label 
+            key={key}
+            className="flex items-start p-4 bg-gray-50 rounded-lg border-2 border-transparent hover:border-blue-300 hover:bg-blue-50 cursor-pointer transition-all duration-300 group">
+            <input
+              className="w-5 h-5 text-blue-600 accent-blue-600 mr-4 mt-1"
+              checked={props.markedOptions[props.index!] == option ? true : false}
+              onChange={(e)=>{
+                const checked = e.currentTarget.value == props.markedOptions[props.index!]
+                handleMarkOption(
+                  props.index!,
+                  checked,
+                  props.setMarkedOptions,
+                  option
+                );
+              }}
+              type="radio" 
+              name={`${props.id}`} 
+              value={option} 
+            />
+            <span className="text-gray-700 group-hover:text-blue-700 font-medium">
+              {option}
+            </span>
           </label>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   )
 }
@@ -156,21 +182,24 @@ function QuestionNumbersArray(props: QuestionListProps) {
   const { length, setSelectedQuestionId } = props;
 
   return (
-    <div 
-    className="flex place-content-center flex-wrap flex-shrink-"
-    >
-      {Array.from({ length: length }).map((_, key) => (
-      <button
-      className="p-2 bg-slate-400 m-1 rounded-lg"
-      key={key}
-        onClick={() => {
-          setSelectedQuestionId(key);
-        }}>{key + 1}</button>
-    ))}
+    <div className="text-center">
+      <h3 className="text-lg font-semibold text-gray-700 mb-4">📝 Question Navigation</h3>
+      <div className="flex justify-center flex-wrap gap-2">
+        {Array.from({ length: length }).map((_, key) => (
+        <button
+          className="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-500 hover:from-blue-500 hover:to-purple-600 text-white font-bold rounded-lg shadow-md hover:shadow-lg transform hover:scale-110 transition-all duration-300"
+          key={key}
+          onClick={() => {
+            setSelectedQuestionId(key);
+          }}>
+          {key + 1}
+        </button>
+      ))}
+      </div>
     </div>
-    
   )
 }
+
 const Counter = ({ testTime, setEnd, setDuration }: TimerProps) => {
 
   const [counter, setCounter] = useState<TestTime>(testTime);
@@ -197,8 +226,14 @@ const Counter = ({ testTime, setEnd, setDuration }: TimerProps) => {
   });
 
   return (
-    <div className="text-lg text-center">
-      {counter.min + ":" + counter.sec}
+    <div className="text-center">
+      <div className="inline-flex items-center bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold py-3 px-6 rounded-full shadow-lg">
+        <span className="text-2xl mr-2">⏰</span>
+        <span className="text-xl">
+          {String(counter.min).padStart(2, '0')}:{String(counter.sec).padStart(2, '0')}
+        </span>
+      </div>
+      <p className="text-sm text-gray-600 mt-2">Time Remaining</p>
     </div>
   )
 }

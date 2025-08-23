@@ -14,15 +14,29 @@ export default function Home({username, loggedIn}:UserProps){
         if(!loggedIn) navigate('/');
     }, [loggedIn]);
     return (
-        <div 
-        className="grid place-items-center">
-            <h3 className="text-xl">
-            Hello, {username} !
-            </h3>
-            <Categories/>
-            <button
-            className="text-lg bg-slate-200 rounded-lg p-2"
-            onClick={()=>navigate('/attempts')}>Previous Attempts</button>
+        <div className="min-h-screen">
+            <div className="container mx-auto px-6 py-12">
+                <div className="text-center mb-12 fade-in">
+                    <h1 className="text-4xl font-bold mb-4 gradient-text">
+                        Welcome back, {username}! 👋
+                    </h1>
+                    <p className="text-white/80 text-lg">
+                        Ready to challenge yourself? Choose a category and start your quiz journey!
+                    </p>
+                </div>
+                
+                <div className="max-w-6xl mx-auto">
+                    <Categories/>
+                    
+                    <div className="text-center mt-12">
+                        <button
+                            className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                            onClick={()=>navigate('/attempts')}>
+                            📊 View Previous Attempts
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
@@ -48,58 +62,76 @@ function Categories(){
     }, []);
 
     return (
-        <>
+        <div className="space-y-6">
             {
             categories != null && expand != null
             ?
             categories.map((cat, key)=>(
-                <div
-                className="p-2 bg-slate-200 m-2 rounded-lg" 
-                key={key}>
+                <div className="card p-6 slide-in" key={key}>
                     <button 
-                        className="text-lg"
+                        className="w-full text-left text-xl font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300 flex items-center justify-between"
                         onClick={()=>{
                         const newExpand = new Array(categories.length).fill(false);
                         newExpand[key] = !expand[key];
                         setExpand(newExpand);
-                    }}>{cat.category}
+                    }}>
+                        <span className="flex items-center">
+                            📚 {cat.category}
+                        </span>
+                        <span className={`transform transition-transform duration-300 ${expand[key] ? 'rotate-180' : ''}`}>
+                            ⬇️
+                        </span>
                     </button>
                     {
                         expand[key] &&
-                        cat.sub_categories.map((sub, key) => (
-                            <div className="m-2 flex flex-wrap place-items-center gap-2" key={key}>
-                                <h3
-                                className="p-2 text-lg border-lime-600 border-r-2"
-                                >{sub}
-                                </h3>
-                                {Array.of('easy', 'medium', 'hard').map((level, key)=> 
-                                <div key={key} className="flex place-items-center">
-                                  <label
-                                  className="text-lg m-2" 
-                                  >
-                                   <input
-                                    className=""
-                                    onClick={()=>handleDifficultyChange(level as DifficultyLevels)}
-                                    type="radio"
-                                    name="difficulty-selector"
-                                    />{level}
-                                  </label>
-                                </div>)}
-                                {/* <input type="number" max={20} min={5}/> */}
-                                <button 
-                                    className="text-lg bg-slate-500 rounded-lg p-2"
-                                    onClick={()=>{
-                                    navigate(`/test/${sub}/${difficulty}`)
-                                    }
-                                }>Attempt</button>
-                            </div>
-                        ))
+                        <div className="mt-6 space-y-4 fade-in">
+                            {cat.sub_categories.map((sub, key) => (
+                                <div className="bg-gray-50 rounded-lg p-6 border-l-4 border-blue-500" key={key}>
+                                    <div className="flex flex-wrap items-center gap-4 mb-4">
+                                        <h3 className="text-lg font-medium text-gray-800 flex items-center">
+                                            🎯 {sub}
+                                        </h3>
+                                    </div>
+                                    
+                                    <div className="flex flex-wrap items-center gap-6">
+                                        <div className="flex items-center gap-4">
+                                            <span className="text-sm font-medium text-gray-600">Difficulty:</span>
+                                            {Array.of('easy', 'medium', 'hard').map((level, key)=> 
+                                            <label key={key} className="flex items-center cursor-pointer group">
+                                                <input
+                                                    className="mr-2 w-4 h-4 text-blue-600 accent-blue-600"
+                                                    onClick={()=>handleDifficultyChange(level as DifficultyLevels)}
+                                                    type="radio"
+                                                    name="difficulty-selector"
+                                                    defaultChecked={level === 'easy'}
+                                                />
+                                                <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600 capitalize">
+                                                    {level === 'easy' ? '🟢 Easy' : level === 'medium' ? '🟡 Medium' : '🔴 Hard'}
+                                                </span>
+                                            </label>)}
+                                        </div>
+                                        
+                                        <button 
+                                            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                                            onClick={()=>{
+                                            navigate(`/test/${sub}/${difficulty}`)
+                                            }}>
+                                            🚀 Start Quiz
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     }
                 </div>
             ))
             :
-            <>loading...</>
+            <div className="text-center py-12">
+                <div className="pulse-animation text-white/80 text-lg">
+                    🔄 Loading categories...
+                </div>
+            </div>
             }
-        </>
+        </div>
     )
 }
