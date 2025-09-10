@@ -74,7 +74,7 @@ function Footer(){
   return (
     <div className='bg-slate-900/20 backdrop-blur-md border-t border-white/20 mt-auto'>
       <div className='container mx-auto px-6 py-8'>
-        <div className='grid md:grid-cols-3 gap-8 text-center md:text-left'>
+        <div className='grid md:grid-cols-2 gap-8 text-center md:text-left'>
           <div>
             <h3 className='text-white font-bold text-lg mb-3'>🧠 QuizMaster</h3>
             <p className='text-white/70 text-sm'>
@@ -91,12 +91,6 @@ function Footer(){
               <Link to='/attempts' className='block text-white/70 hover:text-white transition-colors text-sm'>
                 📊 Previous Attempts
               </Link>
-            </div>
-          </div>
-          <div>
-            <h4 className='text-white font-semibold mb-3'>Connect</h4>
-            <div className='flex justify-center md:justify-start space-x-4'>
-              <span className='text-white/70 text-sm'>📧 support@quizmaster.com</span>
             </div>
           </div>
         </div>
