@@ -7,8 +7,8 @@ export default function Landing(){
             <div className="container mx-auto px-6 py-16">
                 {/* Hero Section */}
                 <div className="text-center mb-16 fade-in">
-                    <h1 className="text-6xl font-bold mb-6 gradient-text">
-                        Welcome to QuizMaster! 🎯
+                    <h1 className="text-6xl font-bold mb-6">
+                        Welcome to Quizze! 🎯
                     </h1>
                     <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
                         Test your knowledge, challenge your friends, and track your progress 
@@ -54,7 +54,7 @@ export default function Landing(){
                         <div className="mb-6">
                             <div className="text-5xl mb-4">✨</div>
                             <h2 className="text-2xl font-bold text-gray-800 mb-3">Join the Fun!</h2>
-                            <p className="text-gray-600 mb-8">New to QuizMaster? Create your account and start exploring amazing quizzes.</p>
+                            <p className="text-gray-600 mb-8">New to Quizze? Create your account and start exploring amazing quizzes.</p>
                         </div>
                         <Link 
                             className="inline-block bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"

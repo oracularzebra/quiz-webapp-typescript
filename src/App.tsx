@@ -14,7 +14,8 @@ import NotFound from './routes/NotFound';
 export const backendUrl = import.meta.env.VITE_backend_url;
 
 function App() {
-
+  
+  console.log(backendUrl);
   const [user, setUser] = useState<User | null>({username:null, password:null});
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
@@ -57,7 +58,7 @@ function Header(){
           <Link 
           to={'/home'}
           className='text-4xl font-bold gradient-text hover:scale-105 transition-transform duration-300'>
-            🧠 QuizMaster
+            🧠 Quizze
           </Link>
           <div className='text-center'>
             <p className='text-white/90 text-sm font-medium'>
@@ -76,7 +77,7 @@ function Footer(){
       <div className='container mx-auto px-6 py-8'>
         <div className='grid md:grid-cols-2 gap-8 text-center md:text-left'>
           <div>
-            <h3 className='text-white font-bold text-lg mb-3'>🧠 QuizMaster</h3>
+            <h3 className='text-white font-bold text-lg mb-3'>🧠 Quizze</h3>
             <p className='text-white/70 text-sm'>
               Challenge yourself with our interactive quiz platform. 
               Learn, compete, and track your progress!
@@ -96,7 +97,7 @@ function Footer(){
         </div>
         <div className='border-t border-white/20 mt-8 pt-6 text-center'>
           <p className='text-white/60 text-sm'>
-            © 2025 QuizMaster. Made with ❤️ by Kartikey
+            © 2025 Quizze. Made with ❤️ by Kartikey
           </p>
         </div>
       </div>

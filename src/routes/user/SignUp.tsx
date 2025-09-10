@@ -17,7 +17,7 @@ export default function SignUp({user,setUser, setLoggedIn}: UserProps){
         <div className="min-h-screen flex items-center justify-center py-12">
             <div className="card p-8 w-full max-w-md fade-in">
                 <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold gradient-text mb-2">Join QuizMaster! 🎉</h2>
+                    <h2 className="text-3xl font-bold gradient-text mb-2">Join Quizze! 🎉</h2>
                     <p className="text-gray-600">Create your account and start your learning journey</p>
                 </div>
 
