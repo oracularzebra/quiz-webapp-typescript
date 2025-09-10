@@ -97,7 +97,7 @@ function Footer(){
         </div>
         <div className='border-t border-white/20 mt-8 pt-6 text-center'>
           <p className='text-white/60 text-sm'>
-            © 2025 Quizze. Made with ❤️ by Kartikey
+            Made with ❤️ by Kartikey
           </p>
         </div>
       </div>
